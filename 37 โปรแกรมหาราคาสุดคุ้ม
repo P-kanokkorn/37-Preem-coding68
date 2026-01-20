@@ -1,0 +1,22 @@
+#โปรแกรมหาราคาสุดคุ้ม  พรีม 37
+
+price_one = float(input("ช่วยบอกราคาสินค้าชิ้นที่ 1 หน่อยค่ะ: "))
+amount_one = float(input("ช่วยบอกปริมาณสินค้าชิ้นที่ 1 ด้วยค่ะ: "))
+worthwhile_one = price_one / amount_one
+
+price_two = float(input("ช่วยบอกราคาสินค้าชิ้นที่ 2 หน่อยค่ะ: "))
+amount_two = float(input("ช่วยบอกปริมาณสินค้าชิ้นที่ 2 ด้วยค่ะ: "))
+worthwhile_two = price_two / amount_two
+
+print("ความคุ้มค่าชิ้นที่ 1 =", worthwhile_one)
+print("ความคุ้มค่าชิ้นที่ 2 =", worthwhile_two)
+
+# เปรียบเทียบ
+if worthwhile_one < worthwhile_two:
+    print("สินค้าชิ้นที่ 1 คุ้มกว่าค่ะ")
+elif worthwhile_one > worthwhile_two:
+    print(" สินค้าชิ้นที่ 2 คุ้มกว่าค่ะ")
+else:
+    print("สินค้าทั้งสองชิ้นคุ้มค่าเท่ากันค่ะ")
+
+
