@@ -1,40 +1,91 @@
-# 🎀 โปรแกรมหาราคาสุดคุ้ม พรีม 37 (Cute Pink Edition) 🎀
+# @title 🌸✨ โปรแกรมเช็คราคาสุดคุ้ม (พรีม 37) ✨🌸
+import ipywidgets as widgets
+from IPython.display import display, HTML, clear_output
 
-print("🌸✨ เปรียบเทียบราคาสินค้า 2 ชิ้น ✨🌸")
-print("〰️" * 25)
+# --- สร้างหน้าตา (Style) ให้ดูน่ารัก ---
+header_html = """
+<div style="background-color:#FFEFF5; padding:15px; border-radius:10px; border: 2px solid #FFC0CB; text-align:center;">
+    <h2 style="color:#FF69B4; margin:0;">🎀 หาราคาสุดคุ้มฉบับพรีม 37 🎀</h2>
+    <p style="color:#888;">กรอกราคาและปริมาณด้านล่างเลยค่า 👇</p>
+</div>
+"""
+display(HTML(header_html))
 
-# --- รับข้อมูลชิ้นที่ 1 ---
-price_one = float(input("👛 ราคาสินค้าชิ้นที่ 1 (บาท): "))
-amount_one = float(input("🍭 ปริมาณสินค้าชิ้นที่ 1 (เช่น กรัม/มล.): "))
-worthwhile_one = price_one / amount_one
+# --- สร้างช่องกรอกข้อมูล ---
+style = {'description_width': '150px'}
+layout = widgets.Layout(width='350px')
 
-print(" . ｡ ﾟ ☁️ ﾟ ｡ . ｡ ﾟ ☁️ ﾟ ｡ .")
+# สินค้าชิ้นที่ 1
+lbl1 = widgets.HTML(value="<b style='color:#C71585'>🛍️ สินค้าชิ้นที่ 1</b>")
+price1 = widgets.FloatText(description='👛 ราคา (บาท):', style=style, layout=layout)
+amount1 = widgets.FloatText(description='🍭 ปริมาณ (กรัม/มล.):', style=style, layout=layout)
 
-# --- รับข้อมูลชิ้นที่ 2 ---
-price_two = float(input("👛 ราคาสินค้าชิ้นที่ 2 (บาท): "))
-amount_two = float(input("🍭 ปริมาณสินค้าชิ้นที่ 2 (เช่น กรัม/มล.): "))
-worthwhile_two = price_two / amount_two
+# สินค้าชิ้นที่ 2
+lbl2 = widgets.HTML(value="<br><b style='color:#C71585'>🛍️ สินค้าชิ้นที่ 2</b>")
+price2 = widgets.FloatText(description='👛 ราคา (บาท):', style=style, layout=layout)
+amount2 = widgets.FloatText(description='🍭 ปริมาณ (กรัม/มล.):', style=style, layout=layout)
 
-print("〰️" * 25)
+# ปุ่มกด
+button = widgets.Button(
+    description='💖 คำนวณความคุ้มค่า 💖',
+    button_style='danger', # สีโทนแดง/ชมพูใน Colab
+    layout=widgets.Layout(width='350px', margin='20px 0px 0px 0px')
+)
+button.style.font_weight = 'bold'
 
-# แสดงผลราคาต่อหน่วย
-print(f"🌷 ความคุ้มค่าชิ้นที่ 1 = {worthwhile_one:.2f} บาท/หน่วย")
-print(f"🌷 ความคุ้มค่าชิ้นที่ 2 = {worthwhile_two:.2f} บาท/หน่วย")
+# พื้นที่แสดงผลลัพธ์
+output_area = widgets.Output()
 
-print("〰️" * 25)
+# --- ฟังก์ชันคำนวณ ---
+def on_button_click(b):
+    with output_area:
+        clear_output() # ล้างผลลัพธ์เก่า
+        try:
+            p1, a1 = price1.value, amount1.value
+            p2, a2 = price2.value, amount2.value
 
-# เปรียบเทียบ + คำนวณส่วนต่าง
-if worthwhile_one < worthwhile_two:
-    diff = worthwhile_two - worthwhile_one
-    print("💖 สรุป: สินค้าชิ้นที่ 1 คุ้มกว่าค่าา (ถูกกว่า) ✨")
-    print(f"   (ถูกกว่ากันอยู่ {diff:.2f} บาท/หน่วย นะคะ 🎀)")
+            if a1 == 0 or a2 == 0:
+                display(HTML("<h3 style='color:red;'>⚠️ ปริมาณสินค้าต้องไม่เป็น 0 นะคะ</h3>"))
+                return
 
-elif worthwhile_one > worthwhile_two:
-    diff = worthwhile_one - worthwhile_two
-    print("💖 สรุป: สินค้าชิ้นที่ 2 คุ้มกว่าค่าา (ถูกกว่า) ✨")
-    print(f"   (ถูกกว่ากันอยู่ {diff:.2f} บาท/หน่วย นะคะ 🎀)")
+            unit_1 = p1 / a1
+            unit_2 = p2 / a2
 
-else:
-    print("💕 สรุป: สินค้ามีราคาเท่ากันเป๊ะเลยค่าา 🍬")
+            # แสดงผลลัพธ์แบบ HTML สีชมพู
+            result_html = f"""
+            <div style="background-color:#FFF0F5; padding:15px; border-radius:10px; border: 1px dashed #FF69B4; margin-top:10px;">
+                <p style="color:#C71585; font-size:16px;">
+                🌷 ชิ้นที่ 1 ตกหน่วยละ: <b>{unit_1:.4f}</b> บาท<br>
+                🌷 ชิ้นที่ 2 ตกหน่วยละ: <b>{unit_2:.4f}</b> บาท
+                </p>
+                <hr style="border-top: 1px dotted #FF69B4;">
+            """
 
-print("🌸✨ ขอบคุณที่ใช้งานนะคะ ✨🌸")
+            if unit_1 < unit_2:
+                diff = unit_2 - unit_1
+                result_html += f"""
+                <h3 style="color:#FF1493;">🏆 ชิ้นที่ 1 คุ้มกว่าค่าา! (ถูกกว่า) ✅</h3>
+                <p style="color:#C71585;">ประหยัดไปได้ <b>{diff:.4f}</b> บาท/หน่วย เลยน้า ✨</p>
+                """
+            elif unit_1 > unit_2:
+                diff = unit_1 - unit_2
+                result_html += f"""
+                <h3 style="color:#FF1493;">🏆 ชิ้นที่ 2 คุ้มกว่าค่าา! (ถูกกว่า) ✅</h3>
+                <p style="color:#C71585;">ประหยัดไปได้ <b>{diff:.4f}</b> บาท/หน่วย เลยน้า ✨</p>
+                """
+            else:
+                result_html += """
+                <h3 style="color:#FF69B4;">🤝 สินค้าคุ้มค่าเท่ากันเป๊ะเลยค่าา 🍬</h3>
+                """
+            
+            result_html += "</div>"
+            display(HTML(result_html))
+
+        except Exception:
+             display(HTML("<h3 style='color:red;'>⚠️ ข้อมูลไม่ถูกต้อง กรุณาลองใหม่นะคะ</h3>"))
+
+# ผูกปุ่มกับฟังก์ชัน
+button.on_click(on_button_click)
+
+# แสดงผลหน้าจอทั้งหมด
+display(lbl1, price1, amount1, lbl2, price2, amount2, button, output_area)
