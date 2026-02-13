@@ -19,8 +19,8 @@
 * **Design Tool:** (เช่น Figma, Canva)
 
 ## 📸 4. ตัวอย่างการใช้งาน (Screenshots)
-(ให้นักเรียนใส่รูปภาพหน้าจอโปรแกรมที่ออกแบบไว้ในขั้น UI Mockup หรือตอนเสร็จแล้ว)
-![App Screenshot](ลิงก์รูปภาพของคุณ)
+<img width="1403" height="524" alt="37" src="https://github.com/user-attachments/assets/a0395be1-aa2e-43ba-b59e-1885f62e032f" />
+
 
 ## 💻 5. วิธีการใช้งาน (How to run)
 1. ดาวน์โหลดไฟล์ .py
